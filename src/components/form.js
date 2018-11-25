@@ -13,6 +13,13 @@ export default class Form extends Component {
     });
   };
 
+  onSubmit = e => {
+    e.preventDefault();
+    this.props.onSubmit(this.state);
+  };
+
+  onReset = () => {};
+
   render() {
     return (
       <form>
@@ -22,6 +29,7 @@ export default class Form extends Component {
           value={this.state.weight}
           onChange={e => this.change(e)}
         />
+        <br />
         <select
           name="units"
           value={this.state.units}
@@ -32,12 +40,16 @@ export default class Form extends Component {
           <option value="ozt">Troy ounces (oz t)</option>
           <option value="dwt">Pennyweight (dwt)</option>
         </select>
+        <br />
+
         <input
           name="karats"
           placeholder="Karats"
           value={this.state.karats}
           onChange={e => this.change(e)}
         />
+        <button onClick={e => this.onSubmit(e)}> = </button>
+        <button onClick={() => this.onReset}> Reset </button>
       </form>
     );
   }
