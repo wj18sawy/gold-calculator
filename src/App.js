@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NavBar from "./components/navbar";
 import Inputs from "./components/inputs";
+import Form from "./components/form";
 import "./App.css";
 
 class App extends Component {
@@ -16,9 +17,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <NavBar />
-        <main className="container">
-          <Inputs onSubmit={this.handleSubmit} />
-        </main>
+        <Form />
       </React.Fragment>
     );
   }

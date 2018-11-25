@@ -35,7 +35,7 @@ class Inputs extends Component {
           </div>
           <button
             className="btn btn-primary"
-            type="submit"
+            type="button"
             onClick={() => this.props.onSubmit()}
           >
             =
