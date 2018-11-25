@@ -1,25 +1,49 @@
 import React, { Component } from "react";
-import Counter from "./counter";
 
-class Counters extends Component {
+class Inputs extends Component {
   render() {
-    const { onReset, counters, onDelete, onIncrement } = this.props;
     return (
-      <div>
-        <button onClick={onReset} className="btn btn-primary btn-sm m-2">
-          Reset
-        </button>
-        {counters.map(counter => (
-          <Counter
-            key={counter.id} //key attribute used internally by react
-            onDelete={onDelete}
-            onIncrement={onIncrement}
-            counter={counter} //counter object carries all needed data
-          />
-        ))}
-      </div>
+      <React.Fragment>
+        <form className="form-inline" action="/action_page.php">
+          <div className="form-group">
+            <label htmlFor="input1">Weight</label>
+            <input
+              type="number"
+              className="form-inline"
+              id="input1"
+              placeholder="00.00"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">Units</label>
+            <select className="form-control" id="exampleFormControlSelect1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="input2">Karats</label>
+            <input
+              type="number"
+              className="form-inline"
+              id="input2"
+              placeholder="00.00"
+            />
+          </div>
+          <button
+            className="btn btn-primary"
+            type="submit"
+            onClick={() => this.props.onSubmit()}
+          >
+            =
+          </button>
+        </form>
+      </React.Fragment>
     );
   }
 }
 
-export default Counters;
+export default Inputs;
