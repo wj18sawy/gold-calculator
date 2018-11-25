@@ -18,8 +18,25 @@ class App extends Component {
 
   calculate = fields => {
     const goldPrice = 1222.6;
+    let convRate = 1;
 
-    console.log("yo", fields.weight);
+    if (fields.units === "g") {
+      convRate = 0.0321507;
+    } else if (fields.units === "oz") {
+      convRate = 0.911458;
+    } else if (fields.units === "dwt") {
+      convRate = 0.05;
+    }
+
+    let weight = fields.weight * convRate;
+    let content = fields.karats / 24;
+    console.log("Weight in troy oz:", weight);
+    console.log("Gold content: ", content * 100, "%");
+
+    let total = weight * content * goldPrice;
+    console.log("Price of Gold: ", total);
+
+    this.setState({ total });
   };
 
   render() {
