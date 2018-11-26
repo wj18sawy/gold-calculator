@@ -8,16 +8,21 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 export default class Form extends Component {
   state = {
-    weight: "",
-    units: "g",
-    karats: ""
+    formData: {
+      weight: "",
+      weightError: "",
+      units: "g",
+      karats: "",
+      karatsError: ""
+    },
+    submitted: false
   };
 
   change = e => {
-    console.log("Text");
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -28,26 +33,55 @@ export default class Form extends Component {
     this.props.onSubmit(this.state);
   };
 
-  onReset = () => {};
+  onReset = () => {
+    this.setState({
+      weight: "",
+      weightError: "",
+      units: "g",
+      karats: "",
+      karatsError: ""
+    });
+  };
+
+  componentDidMount() {
+    ValidatorForm.addValidationRule("isValidKarat", value => {
+      if (value < 0 || value > 24) {
+        return false;
+      }
+      return true;
+    });
+    ValidatorForm.addValidationRule("isANumber", value => {
+      if (isNaN(value)) {
+        return false;
+      }
+      return true;
+    });
+  }
 
   render() {
     return (
-      <form autoComplete="off">
-        <TextField
-          id="standard-helperText"
+      <ValidatorForm autoComplete="off" onSubmit={e => this.onSubmit(e)}>
+        <TextValidator
           name="weight"
           label="Weight"
           value={this.state.weight}
+          validators={["required", "isANumber"]}
+          errorMessages={["this field is required", "must be a number value"]}
           onChange={e => this.change(e)}
         />
         <br />
         <br />
-        <FormControl name="units" className={this.state.formControl}>
-          <InputLabel htmlFor="units-helper">Units</InputLabel>
+        <FormControl className={this.state.formControl}>
+          <InputLabel shrink htmlFor="units-label-placeholder">
+            Units
+          </InputLabel>
           <Select
             value={this.state.units}
             onChange={e => this.change(e)}
-            input={<Input name="units" id="units-helper" />}
+            input={<Input name="units" id="units-label-placeholder" />}
+            name="units"
+            displayEmpty
+            className="this.state.selectEmpty"
           >
             <MenuItem value="g">Grams (g)</MenuItem>
             <MenuItem value="oz">Ounces (oz)</MenuItem>
@@ -56,21 +90,30 @@ export default class Form extends Component {
           </Select>
         </FormControl>
         <br />
-        <TextField
-          id="standard-helperText"
+        <TextValidator
           name="karats"
           label="Karats"
           value={this.state.karats}
+          validators={["required", "isANumber", "isValidKarat"]}
+          errorMessages={[
+            "this field is required",
+            "must be a number value",
+            "must be between 0-24 karats"
+          ]}
           onChange={e => this.change(e)}
         />
-        <Button color="primary" onClick={e => this.onSubmit(e)}>
+        <Button type="submit" color="primary" onClick={e => this.onSubmit(e)}>
           =
         </Button>
         <br />
-        <Button color="secondary" onClick={() => this.onReset}>
+        <Button
+          color="secondary"
+          onClick={() => this.onReset()}
+          disabled={this.state.submitted}
+        >
           Reset
         </Button>
-      </form>
+      </ValidatorForm>
     );
   }
 }
