@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Input from "@material-ui/core/Input";
 
 export default class Form extends Component {
   state = {
@@ -26,7 +32,7 @@ export default class Form extends Component {
 
   render() {
     return (
-      <form>
+      <form autoComplete="off">
         <TextField
           id="standard-helperText"
           name="weight"
@@ -35,16 +41,20 @@ export default class Form extends Component {
           onChange={e => this.change(e)}
         />
         <br />
-        <select
-          name="units"
-          value={this.state.units}
-          onChange={e => this.change(e)}
-        >
-          <option value="g">Grams (g)</option>
-          <option value="oz">Ounces (oz)</option>
-          <option value="ozt">Troy ounces (oz t)</option>
-          <option value="dwt">Pennyweight (dwt)</option>
-        </select>
+        <br />
+        <FormControl name="units" className={this.state.formControl}>
+          <InputLabel htmlFor="units-helper">Units</InputLabel>
+          <Select
+            value={this.state.units}
+            onChange={e => this.change(e)}
+            input={<Input name="units" id="units-helper" />}
+          >
+            <MenuItem value="g">Grams (g)</MenuItem>
+            <MenuItem value="oz">Ounces (oz)</MenuItem>
+            <MenuItem value="ozt">Troy ounces (oz t)</MenuItem>
+            <MenuItem value="dwt">Pennyweight (dwt)</MenuItem>
+          </Select>
+        </FormControl>
         <br />
         <TextField
           id="standard-helperText"
