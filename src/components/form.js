@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 export default class Form extends Component {
   state = {
@@ -8,6 +11,7 @@ export default class Form extends Component {
   };
 
   change = e => {
+    console.log("Text");
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -23,9 +27,10 @@ export default class Form extends Component {
   render() {
     return (
       <form>
-        <input
+        <TextField
+          id="standard-helperText"
           name="weight"
-          placeholder="Weight"
+          label="Weight"
           value={this.state.weight}
           onChange={e => this.change(e)}
         />
@@ -41,15 +46,20 @@ export default class Form extends Component {
           <option value="dwt">Pennyweight (dwt)</option>
         </select>
         <br />
-
-        <input
+        <TextField
+          id="standard-helperText"
           name="karats"
-          placeholder="Karats"
+          label="Karats"
           value={this.state.karats}
           onChange={e => this.change(e)}
         />
-        <button onClick={e => this.onSubmit(e)}> = </button>
-        <button onClick={() => this.onReset}> Reset </button>
+        <Button color="primary" onClick={e => this.onSubmit(e)}>
+          =
+        </Button>
+        <br />
+        <Button color="secondary" onClick={() => this.onReset}>
+          Reset
+        </Button>
       </form>
     );
   }
