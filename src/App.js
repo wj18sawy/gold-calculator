@@ -12,7 +12,6 @@ class App extends Component {
 
   onSubmit = fields => {
     this.setState({ fields });
-    console.log("App component got: ", fields);
     this.calculate(fields);
   };
 
@@ -33,10 +32,30 @@ class App extends Component {
     console.log("Weight in troy oz:", weight);
     console.log("Gold content: ", content * 100, "%");
 
-    let total = weight * content * goldPrice;
+    let total = (weight * content * goldPrice).toFixed(2);
     console.log("Price of Gold: ", total);
 
-    this.setState({ total });
+    this.formatter(total);
+  };
+
+  formatter = total => {
+    let totalStr = total.toString();
+    let number = totalStr.slice(0, totalStr.length - 3);
+    let decimal = totalStr.slice(totalStr.length - 3);
+
+    let count = 0;
+    for (let i = number.length - 1; i > 0; i--) {
+      count++;
+      if (count === 3) {
+        count = 0;
+        number = number.slice(0, i) + "," + number.slice(i);
+      }
+    }
+
+    let newTotal = number + "" + decimal;
+    console.log("After formatting: $", newTotal);
+
+    this.setState({ total: newTotal });
   };
 
   render() {
@@ -44,7 +63,6 @@ class App extends Component {
       <div>
         <NavBar />
         <Form onSubmit={fields => this.onSubmit(fields)} />
-        <p> {JSON.stringify(this.state.fields, null, 2)} </p>
         <p> Total gold value is: ${this.state.total} </p>
       </div>
     );
