@@ -12,14 +12,9 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 export default class Form extends Component {
   state = {
-    formData: {
-      weight: "",
-      weightError: "",
-      units: "g",
-      karats: "",
-      karatsError: ""
-    },
-    submitted: false
+    weight: "",
+    units: "g",
+    karats: ""
   };
 
   change = e => {
@@ -106,11 +101,7 @@ export default class Form extends Component {
           =
         </Button>
         <br />
-        <Button
-          color="secondary"
-          onClick={() => this.onReset()}
-          disabled={this.state.submitted}
-        >
+        <Button color="secondary" onClick={() => this.onReset()}>
           Reset
         </Button>
       </ValidatorForm>
