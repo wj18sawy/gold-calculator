@@ -95,6 +95,8 @@ class App extends Component {
           }}
           variant="filled"
         />
+      </div>
+    );
   }
 }
 
