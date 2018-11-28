@@ -31,10 +31,8 @@ export default class Form extends Component {
   onReset = () => {
     this.setState({
       weight: "",
-      weightError: "",
       units: "g",
-      karats: "",
-      karatsError: ""
+      karats: ""
     });
   };
 
@@ -43,17 +41,24 @@ export default class Form extends Component {
       if (value < 0 || value > 24) {
         return false;
       }
+
       return true;
     });
     ValidatorForm.addValidationRule("isANumber", value => {
       if (isNaN(value)) {
         return false;
       }
+
       return true;
     });
   }
 
   render() {
+    const isEnabled =
+      !isNaN(this.state.weight) &&
+      !isNaN(this.state.karats) &&
+      this.state.karats >= 0 &&
+      this.state.karats <= 24;
     return (
       <ValidatorForm autoComplete="off" onSubmit={e => this.onSubmit(e)}>
         <TextValidator
@@ -97,7 +102,12 @@ export default class Form extends Component {
           ]}
           onChange={e => this.change(e)}
         />
-        <Button type="submit" color="primary" onClick={e => this.onSubmit(e)}>
+        <Button
+          type="submit"
+          color="primagitry"
+          onClick={e => this.onSubmit(e)}
+          disabled={!isEnabled}
+        >
           =
         </Button>
         <br />
