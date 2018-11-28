@@ -7,10 +7,28 @@ import TextField from "@material-ui/core/TextField";
 import "./App.css";
 
 class App extends Component {
-  state = {
-    fields: {},
-    total: 0
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      fields: {},
+      total: 0,
+      items: [],
+      isLoaded: false
+    };
+  }
+
+  componentDidMount() {
+    fetch(
+      "https://www.quandl.com/api/v3/datasets/WGC/GOLD_DAILY_USD.json?api_key=pzMmVf_AdsD4LZhNz7GN"
+    )
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          isLoaded: true,
+          items: json
+        });
+      });
+  }
 
   onSubmit = fields => {
     this.setState({ fields });
@@ -61,6 +79,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.items);
     return (
       <div>
         <NavBar />
@@ -76,8 +95,6 @@ class App extends Component {
           }}
           variant="filled"
         />
-      </div>
-    );
   }
 }
 

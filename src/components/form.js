@@ -9,12 +9,14 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import axios from "axios";
 
 export default class Form extends Component {
   state = {
     weight: "",
     units: "g",
-    karats: ""
+    karats: "",
+    data: {}
   };
 
   change = e => {
