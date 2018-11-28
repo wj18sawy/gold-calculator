@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import NavBar from "./components/navbar";
 import Inputs from "./components/inputs";
 import Form from "./components/form";
+import TextField from "@material-ui/core/TextField";
+
 import "./App.css";
 
 class App extends Component {
@@ -63,7 +65,17 @@ class App extends Component {
       <div>
         <NavBar />
         <Form onSubmit={fields => this.onSubmit(fields)} />
-        <p> Total gold value is: ${this.state.total} </p>
+        <TextField
+          id="filled-read-only-input"
+          label="Total Gold Value:"
+          value={"$" + this.state.total}
+          className={this.state.textField}
+          margin="normal"
+          InputProps={{
+            readOnly: true
+          }}
+          variant="filled"
+        />
       </div>
     );
   }
