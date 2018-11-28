@@ -16,7 +16,7 @@ export default class Form extends Component {
     weight: "",
     units: "g",
     karats: "",
-    data: {}
+    goldPrice: ""
   };
 
   change = e => {
@@ -34,7 +34,8 @@ export default class Form extends Component {
     this.setState({
       weight: "",
       units: "g",
-      karats: ""
+      karats: "",
+      goldPrice: ""
     });
   };
 
@@ -53,14 +54,27 @@ export default class Form extends Component {
 
       return true;
     });
+    ValidatorForm.addValidationRule("isWrongPrice", value => {
+      if ((value < 500 && value > 0) || value > 5000) {
+        console.log("Price too low");
+        return false;
+      }
+
+      return true;
+    });
   }
 
   render() {
     const isEnabled =
       !isNaN(this.state.weight) &&
+      !isNaN(this.state.goldPrice) &&
       !isNaN(this.state.karats) &&
-      this.state.karats >= 0 &&
-      this.state.karats <= 24;
+      this.state.karats > 0 &&
+      this.state.goldPrice > 0 &&
+      this.state.weight > 0 &&
+      this.state.karats <= 24 &&
+      this.state.goldPrice >= 500 &&
+      this.state.goldPrice <= 5000;
     return (
       <ValidatorForm autoComplete="off" onSubmit={e => this.onSubmit(e)}>
         <TextValidator
@@ -101,6 +115,19 @@ export default class Form extends Component {
             "this field is required",
             "must be a number value",
             "must be between 0-24 karats"
+          ]}
+          onChange={e => this.change(e)}
+        />
+        <br />
+        <TextValidator
+          name="goldPrice"
+          label="Current Price of Gold"
+          value={this.state.goldPrice}
+          validators={["required", "isANumber", "isWrongPrice"]}
+          errorMessages={[
+            "this field is required",
+            "must be a number value",
+            "unlikely current price of gold per oz"
           ]}
           onChange={e => this.change(e)}
         />

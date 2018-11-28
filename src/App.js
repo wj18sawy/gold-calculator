@@ -11,13 +11,12 @@ class App extends Component {
     super(props);
     this.state = {
       fields: {},
-      total: 0,
-      items: [],
-      isLoaded: false
+      total: 0
     };
   }
 
   componentDidMount() {
+    /* Fetch for API (not used because can't find free API that's in realtime)
     fetch(
       "https://www.quandl.com/api/v3/datasets/WGC/GOLD_DAILY_USD.json?api_key=pzMmVf_AdsD4LZhNz7GN"
     )
@@ -28,6 +27,7 @@ class App extends Component {
           items: json
         });
       });
+      */
   }
 
   onSubmit = fields => {
@@ -36,20 +36,20 @@ class App extends Component {
   };
 
   calculate = fields => {
-    const goldPrice = 1222.6;
     let convRate = 1;
 
     if (fields.units === "g") {
-      convRate = 0.0321507;
-    } else if (fields.units === "oz") {
-      convRate = 0.911458;
+      convRate = 0.035274;
+    } else if (fields.units === "ozt") {
+      convRate = 1.09714;
     } else if (fields.units === "dwt") {
-      convRate = 0.05;
+      convRate = 0.0548571;
     }
 
+    let goldPrice = fields.goldPrice;
     let weight = fields.weight * convRate;
     let content = fields.karats / 24;
-    console.log("Weight in troy oz:", weight);
+    console.log("Weight in oz:", weight);
     console.log("Gold content: ", content * 100, "%");
 
     let total = (weight * content * goldPrice).toFixed(2);
@@ -95,6 +95,16 @@ class App extends Component {
           }}
           variant="filled"
         />
+        <div>
+          <iframe
+            src="https://www.goldbroker.com/widget/iframe/live/XAU/320?currency=USD"
+            width="100%"
+            height={320}
+            style={{ border: 0, overflow: "hidden" }}
+          />
+          <br />
+          Gold price by <a href="https://www.goldbroker.com">GoldBroker.com</a>
+        </div>
       </div>
     );
   }
