@@ -14,11 +14,9 @@ export default class SilverForm extends Component {
   state = {
     weight: "",
     units: "g",
-    karats: "",
+    purity: "",
     silverPrice: "",
-    total: 0,
-    total92: 0,
-    total62: 0
+    total: 0
   };
 
   change = e => {
@@ -31,7 +29,7 @@ export default class SilverForm extends Component {
     this.setState({
       weight: "",
       units: "g",
-      karats: "",
+      purity: "",
       silverPrice: ""
     });
   };
@@ -62,11 +60,7 @@ export default class SilverForm extends Component {
     let total = (weight * content * silverPrice).toFixed(2);
     console.log("Price of Silver: ", total);
 
-    this.setState({
-      total: total,
-      total92: (total * 0.92).toFixed(2),
-      total62: (total * 0.62).toFixed(2)
-    });
+    this.setState({ total });
   };
 
   formatter = total => {
@@ -89,13 +83,6 @@ export default class SilverForm extends Component {
   };
 
   componentDidMount() {
-    ValidatorForm.addValidationRule("isValidKarat", value => {
-      if (value < 0 || value > 24) {
-        return false;
-      }
-
-      return true;
-    });
     ValidatorForm.addValidationRule("isANumber", value => {
       if (isNaN(value)) {
         return false;
@@ -104,8 +91,7 @@ export default class SilverForm extends Component {
       return true;
     });
     ValidatorForm.addValidationRule("isWrongPrice", value => {
-      if ((value < 500 && value > 0) || value > 5000) {
-        console.log("Price too low");
+      if (value > 100) {
         return false;
       }
 
@@ -117,16 +103,17 @@ export default class SilverForm extends Component {
     const isEnabled =
       !isNaN(this.state.weight) &&
       !isNaN(this.state.silverPrice) &&
-      !isNaN(this.state.karats) &&
-      this.state.karats > 0 &&
       this.state.silverPrice > 0 &&
       this.state.weight > 0 &&
-      this.state.karats <= 24 &&
-      this.state.silverPrice >= 500 &&
-      this.state.silverPrice <= 5000;
+      this.state.silverPrice <= 100;
+
     return (
       <div>
-        <ValidatorForm autoComplete="off" onSubmit={e => this.onSubmit(e)}>
+        <ValidatorForm
+          autoComplete="off"
+          onSubmit={e => this.onSubmit(e)}
+          style={{ float: "left" }}
+        >
           <TextValidator
             name="weight"
             label="Weight"
@@ -156,18 +143,26 @@ export default class SilverForm extends Component {
             </Select>
           </FormControl>
           <br />
-          <TextValidator
-            name="karats"
-            label="Karats"
-            value={this.state.karats}
-            validators={["required", "isANumber", "isValidKarat"]}
-            errorMessages={[
-              "this field is required",
-              "must be a number value",
-              "must be between 0-24 karats"
-            ]}
-            onChange={e => this.change(e)}
-          />
+          <br />
+          <FormControl className={this.state.formControl}>
+            <InputLabel shrink htmlFor="purity-label-placeholder">
+              Purity
+            </InputLabel>
+            <Select
+              value={this.state.purity}
+              onChange={e => this.change(e)}
+              input={<Input name="purity" id="purity-label-placeholder" />}
+              name="purity"
+              displayEmpty
+              className="this.state.selectEmpty"
+              disabled="true"
+            >
+              <MenuItem value=".999">Pure/Fine Silver (%99.9)</MenuItem>
+              <MenuItem value=".958">British Silver (%95.8)</MenuItem>
+              <MenuItem value=".925">Sterling Silver (%92.5)</MenuItem>
+              <MenuItem value=".9">Coin Silver (%90)</MenuItem>
+            </Select>
+          </FormControl>
           <br />
           <TextValidator
             name="silverPrice"
@@ -193,11 +188,21 @@ export default class SilverForm extends Component {
           <Button color="secondary" onClick={() => this.onReset()}>
             Reset
           </Button>
-          <br />
+        </ValidatorForm>
+
+        <iframe
+          src="https://www.goldbroker.com/widget/live-price/XAG?currency=USD"
+          height={130}
+          style={{ border: 0 }}
+        />
+
+        <br />
+
+        <div style={{ clear: "left" }}>
           <TextField
             id="filled-read-only-input"
             label="Total Silver Value:"
-            value={"$" + this.formatter(this.state.total)}
+            value={"$" + (this.state.total * 1).toFixed(2)}
             className={this.state.textField}
             margin="normal"
             InputProps={{
@@ -205,10 +210,11 @@ export default class SilverForm extends Component {
             }}
             variant="filled"
           />
+
           <TextField
             id="filled-read-only-input"
             label="Total Silver Value (92%):"
-            value={"$" + this.formatter(this.state.total92)}
+            value={"$" + this.formatter((this.state.total * 0.92).toFixed(2))}
             className={this.state.textField}
             margin="normal"
             InputProps={{
@@ -216,10 +222,11 @@ export default class SilverForm extends Component {
             }}
             variant="filled"
           />
+
           <TextField
             id="filled-read-only-input"
             label="Total Silver Value (62%):"
-            value={"$" + this.formatter(this.state.total62)}
+            value={"$" + this.formatter((this.state.total * 0.62).toFixed(2))}
             className={this.state.textField}
             margin="normal"
             InputProps={{
@@ -227,7 +234,7 @@ export default class SilverForm extends Component {
             }}
             variant="filled"
           />
-        </ValidatorForm>
+        </div>
       </div>
     );
   }

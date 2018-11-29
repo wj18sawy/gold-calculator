@@ -16,9 +16,7 @@ export default class GoldForm extends Component {
     units: "g",
     karats: "",
     goldPrice: "",
-    total: 0,
-    total92: 0,
-    total62: 0
+    total: 0
   };
 
   change = e => {
@@ -62,11 +60,7 @@ export default class GoldForm extends Component {
     let total = (weight * content * goldPrice).toFixed(2);
     console.log("Price of Gold: ", total);
 
-    this.setState({
-      total: total,
-      total92: (total * 0.92).toFixed(2),
-      total62: (total * 0.62).toFixed(2)
-    });
+    this.setState({ total });
   };
 
   formatter = total => {
@@ -105,7 +99,6 @@ export default class GoldForm extends Component {
     });
     ValidatorForm.addValidationRule("isWrongPrice", value => {
       if ((value < 500 && value > 0) || value > 5000) {
-        console.log("Price too low");
         return false;
       }
 
@@ -210,7 +203,7 @@ export default class GoldForm extends Component {
           <TextField
             id="filled-read-only-input"
             label="Total Gold Value:"
-            value={"$" + this.formatter(this.state.total)}
+            value={"$" + (this.state.total * 1).toFixed(2)}
             className={this.state.textField}
             margin="normal"
             InputProps={{
@@ -222,7 +215,7 @@ export default class GoldForm extends Component {
           <TextField
             id="filled-read-only-input"
             label="Total Gold Value (92%):"
-            value={"$" + this.formatter(this.state.total92)}
+            value={"$" + this.formatter((this.state.total * 0.92).toFixed(2))}
             className={this.state.textField}
             margin="normal"
             InputProps={{
@@ -234,7 +227,7 @@ export default class GoldForm extends Component {
           <TextField
             id="filled-read-only-input"
             label="Total Gold Value (62%):"
-            value={"$" + this.formatter(this.state.total62)}
+            value={"$" + this.formatter((this.state.total * 0.62).toFixed(2))}
             className={this.state.textField}
             margin="normal"
             InputProps={{
