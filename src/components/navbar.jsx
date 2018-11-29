@@ -1,19 +1,22 @@
-import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import { Tabs, Tab, TabList, TabLink, Icon } from "bloomer";
 
 const NavBar = () => {
   return (
-    <ul class="nav nav-pills">
-      <li class="nav-item">
-        <NavLink to="/" class="nav-link">
-          {/*using link tag to prevent a new server request*/}
-          Gold Calculator
-        </NavLink>
-      </li>
-      <li class="nav-item" class="nav-link">
-        <NavLink to="/silverform">Silver Calculator</NavLink>
-      </li>
-    </ul>
+    <div>
+      <Tabs>
+        <TabList>
+          <CustomTab activeOnlyWhenExact={true} to="/" label="GoldCalc" />
+          <CustomTab to="/silverform" label="SilverCalc" />
+        </TabList>
+      </Tabs>
+    </div>
   );
 };
 

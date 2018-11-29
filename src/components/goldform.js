@@ -6,6 +6,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -131,6 +132,13 @@ export default class GoldForm extends Component {
             validators={["required", "isANumber"]}
             errorMessages={["this field is required", "must be a number value"]}
             onChange={e => this.change(e)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {this.state.units}
+                </InputAdornment>
+              )
+            }}
           />
           <br />
           <br />
@@ -166,6 +174,7 @@ export default class GoldForm extends Component {
             onChange={e => this.change(e)}
           />
           <br />
+          <br />
           <TextValidator
             name="goldPrice"
             label="Current Price of Gold"
@@ -177,6 +186,11 @@ export default class GoldForm extends Component {
               "unlikely current price of gold per oz"
             ]}
             onChange={e => this.change(e)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              )
+            }}
           />
           <Button
             type="submit"

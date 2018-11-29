@@ -15,7 +15,7 @@ export default class SilverForm extends Component {
   state = {
     weight: "",
     units: "g",
-    purity: ".925",
+    purity: "92.5",
     silverPrice: "",
     total: 0,
     custom: false
@@ -45,7 +45,7 @@ export default class SilverForm extends Component {
   onCustom = () => {
     if (this.state.custom) {
       this.setState({
-        purity: ".925",
+        purity: "92.5",
         custom: false
       });
     } else {
@@ -70,11 +70,11 @@ export default class SilverForm extends Component {
 
     let silverPrice = fields.silverPrice;
     let weight = fields.weight * convRate;
-    let content = fields.custom ? fields.purity / 100 : fields.purity;
+    let content = fields.purity;
     console.log("Weight in oz:", weight);
-    console.log("Silver content: ", content * 100, "%");
+    console.log("Silver content: ", content, "%");
 
-    let total = (weight * content * silverPrice).toFixed(2);
+    let total = (weight * (content / 100) * silverPrice).toFixed(2);
     console.log("Price of Silver: ", total);
 
     this.setState({ total });
@@ -129,7 +129,9 @@ export default class SilverForm extends Component {
       !isNaN(this.state.silverPrice) &&
       this.state.silverPrice > 0 &&
       this.state.weight > 0 &&
-      this.state.silverPrice <= 100;
+      this.state.silverPrice <= 100 &&
+      this.state.purity >= 1 &&
+      this.state.purity <= 100;
 
     return (
       <div>
@@ -174,7 +176,9 @@ export default class SilverForm extends Component {
             </Select>
           </FormControl>
           <br />
+
           <br />
+
           <FormControl
             className={this.state.formControl}
             style={{ display: this.state.custom ? "none" : "" }}
@@ -190,13 +194,13 @@ export default class SilverForm extends Component {
               displayEmpty
               className="this.state.selectEmpty"
             >
-              <MenuItem value=".999">Pure/Fine Silver (99.9%)</MenuItem>
-              <MenuItem value=".958">British Silver (95.8%)</MenuItem>
-              <MenuItem value=".925">Sterling Silver (92.5%)</MenuItem>
-              <MenuItem value=".9">Coin Silver (90%)</MenuItem>
+              <MenuItem value="99.9">Pure/Fine Silver (99.9%)</MenuItem>
+              <MenuItem value="95.8">British Silver (95.8%)</MenuItem>
+              <MenuItem value="92.5">Sterling Silver (92.5%)</MenuItem>
+              <MenuItem value="90">Coin Silver (90%)</MenuItem>
             </Select>
           </FormControl>
-          <br />
+          <br style={{ display: this.state.custom ? "none" : "" }} />
           <TextValidator
             name="purity"
             label="Purity"
@@ -217,6 +221,7 @@ export default class SilverForm extends Component {
           />
 
           <br />
+          <br style={{ display: this.state.custom ? "" : "none" }} />
 
           <Button
             size="small"
@@ -225,7 +230,7 @@ export default class SilverForm extends Component {
           >
             {this.state.custom ? "Select preset purity" : "Add custom purity"}
           </Button>
-
+          <br />
           <br />
           <TextValidator
             name="silverPrice"
