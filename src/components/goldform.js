@@ -9,7 +9,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import axios from "axios";
 
 export default class GoldForm extends Component {
   state = {
@@ -127,7 +126,11 @@ export default class GoldForm extends Component {
       this.state.goldPrice <= 5000;
     return (
       <div>
-        <ValidatorForm autoComplete="off" onSubmit={e => this.onSubmit(e)}>
+        <ValidatorForm
+          autoComplete="off"
+          onSubmit={e => this.onSubmit(e)}
+          style={{ float: "left" }}
+        >
           <TextValidator
             name="weight"
             label="Weight"
@@ -195,48 +198,50 @@ export default class GoldForm extends Component {
             Reset
           </Button>
         </ValidatorForm>
-        <TextField
-          id="filled-read-only-input"
-          label="Total Gold Value:"
-          value={"$" + this.formatter(this.state.total)}
-          className={this.state.textField}
-          margin="normal"
-          InputProps={{
-            readOnly: true
-          }}
-          variant="filled"
+
+        <iframe
+          src="https://www.goldbroker.com/widget/live-price/XAU?currency=USD"
+          height={130}
+          style={{ border: 0 }}
         />
-        <TextField
-          id="filled-read-only-input"
-          label="Total Gold Value (92%):"
-          value={"$" + this.formatter(this.state.total92)}
-          className={this.state.textField}
-          margin="normal"
-          InputProps={{
-            readOnly: true
-          }}
-          variant="filled"
-        />
-        <TextField
-          id="filled-read-only-input"
-          label="Total Gold Value (62%):"
-          value={"$" + this.formatter(this.state.total62)}
-          className={this.state.textField}
-          margin="normal"
-          InputProps={{
-            readOnly: true
-          }}
-          variant="filled"
-        />
-        <div>
-          <iframe
-            src="https://www.goldbroker.com/widget/iframe/live/XAU/320?currency=USD"
-            width="100%"
-            height={320}
-            style={{ border: 0, overflow: "hidden" }}
+        <br />
+
+        <div style={{ clear: "left" }}>
+          <TextField
+            id="filled-read-only-input"
+            label="Total Gold Value:"
+            value={"$" + this.formatter(this.state.total)}
+            className={this.state.textField}
+            margin="normal"
+            InputProps={{
+              readOnly: true
+            }}
+            variant="filled"
           />
-          <br />
-          Gold price by <a href="https://www.goldbroker.com">GoldBroker.com</a>
+
+          <TextField
+            id="filled-read-only-input"
+            label="Total Gold Value (92%):"
+            value={"$" + this.formatter(this.state.total92)}
+            className={this.state.textField}
+            margin="normal"
+            InputProps={{
+              readOnly: true
+            }}
+            variant="filled"
+          />
+
+          <TextField
+            id="filled-read-only-input"
+            label="Total Gold Value (62%):"
+            value={"$" + this.formatter(this.state.total62)}
+            className={this.state.textField}
+            margin="normal"
+            InputProps={{
+              readOnly: true
+            }}
+            variant="filled"
+          />
         </div>
       </div>
     );
