@@ -6,6 +6,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -14,13 +15,14 @@ export default class SilverForm extends Component {
   state = {
     weight: "",
     units: "g",
-    purity: "",
+    purity: ".925",
     silverPrice: "",
     total: 0,
     custom: false
   };
 
   change = e => {
+    console.log("change", e.target.name, e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -30,7 +32,7 @@ export default class SilverForm extends Component {
     this.setState({
       weight: "",
       units: "g",
-      purity: "",
+      purity: this.state.custom ? "" : ".925",
       silverPrice: ""
     });
   };
@@ -43,10 +45,12 @@ export default class SilverForm extends Component {
   onCustom = () => {
     if (this.state.custom) {
       this.setState({
+        purity: ".925",
         custom: false
       });
     } else {
       this.setState({
+        purity: "",
         custom: true
       });
     }
@@ -54,7 +58,7 @@ export default class SilverForm extends Component {
 
   calculate = () => {
     const fields = this.state;
-    let convRate = 1;
+    let convRate = 0.999;
 
     if (fields.units === "g") {
       convRate = 0.035274;
@@ -66,7 +70,7 @@ export default class SilverForm extends Component {
 
     let silverPrice = fields.silverPrice;
     let weight = fields.weight * convRate;
-    let content = fields.karats / 24;
+    let content = fields.custom ? fields.purity / 100 : fields.purity;
     console.log("Weight in oz:", weight);
     console.log("Silver content: ", content * 100, "%");
 
@@ -110,6 +114,13 @@ export default class SilverForm extends Component {
 
       return true;
     });
+    ValidatorForm.addValidationRule("isValidPercent", value => {
+      if (value > 100 || (value < 1 && value != 0)) {
+        return false;
+      }
+
+      return true;
+    });
   }
 
   render() {
@@ -134,6 +145,13 @@ export default class SilverForm extends Component {
             validators={["required", "isANumber"]}
             errorMessages={["this field is required", "must be a number value"]}
             onChange={e => this.change(e)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {this.state.units}
+                </InputAdornment>
+              )
+            }}
           />
           <br />
           <br />
@@ -157,7 +175,10 @@ export default class SilverForm extends Component {
           </FormControl>
           <br />
           <br />
-          <FormControl className={this.state.formControl}>
+          <FormControl
+            className={this.state.formControl}
+            style={{ display: this.state.custom ? "none" : "" }}
+          >
             <InputLabel shrink htmlFor="purity-label-placeholder">
               Purity
             </InputLabel>
@@ -168,27 +189,35 @@ export default class SilverForm extends Component {
               name="purity"
               displayEmpty
               className="this.state.selectEmpty"
-              style={{ display: this.state.custom ? "none" : "" }}
             >
-              <MenuItem value=".999">Pure/Fine Silver (%99.9)</MenuItem>
-              <MenuItem value=".958">British Silver (%95.8)</MenuItem>
-              <MenuItem value=".925">Sterling Silver (%92.5)</MenuItem>
-              <MenuItem value=".9">Coin Silver (%90)</MenuItem>
+              <MenuItem value=".999">Pure/Fine Silver (99.9%)</MenuItem>
+              <MenuItem value=".958">British Silver (95.8%)</MenuItem>
+              <MenuItem value=".925">Sterling Silver (92.5%)</MenuItem>
+              <MenuItem value=".9">Coin Silver (90%)</MenuItem>
             </Select>
           </FormControl>
           <br />
-
-          <Input
-            placeholder="ex: 93.8"
-            className={this.state.input}
-            inputProps={{
-              "aria-label": "Description"
-            }}
+          <TextValidator
+            name="purity"
+            label="Purity"
+            value={this.state.purity}
+            validators={["required", "isANumber", "isValidPercent"]}
+            errorMessages={[
+              "this field is required",
+              "must be a number value",
+              "this should be a percent value"
+            ]}
+            onChange={e => this.change(e)}
             style={{
               display: this.state.custom ? "" : "none"
             }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>
+            }}
           />
+
           <br />
+
           <Button
             size="small"
             className={this.state.margin}
@@ -209,6 +238,11 @@ export default class SilverForm extends Component {
               "unlikely current price of silver per oz"
             ]}
             onChange={e => this.change(e)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              )
+            }}
           />
           <Button
             type="submit"
@@ -236,7 +270,7 @@ export default class SilverForm extends Component {
           <TextField
             id="filled-read-only-input"
             label="Total Silver Value:"
-            value={"$" + (this.state.total * 1).toFixed(2)}
+            value={"$" + this.formatter((this.state.total * 1).toFixed(2))}
             className={this.state.textField}
             margin="normal"
             InputProps={{
