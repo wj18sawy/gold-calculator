@@ -16,7 +16,8 @@ export default class SilverForm extends Component {
     units: "g",
     purity: "",
     silverPrice: "",
-    total: 0
+    total: 0,
+    custom: false
   };
 
   change = e => {
@@ -37,6 +38,18 @@ export default class SilverForm extends Component {
   onSubmit = e => {
     e.preventDefault();
     this.calculate();
+  };
+
+  onCustom = () => {
+    if (this.state.custom) {
+      this.setState({
+        custom: false
+      });
+    } else {
+      this.setState({
+        custom: true
+      });
+    }
   };
 
   calculate = () => {
@@ -155,7 +168,7 @@ export default class SilverForm extends Component {
               name="purity"
               displayEmpty
               className="this.state.selectEmpty"
-              disabled="true"
+              style={{ display: this.state.custom ? "none" : "" }}
             >
               <MenuItem value=".999">Pure/Fine Silver (%99.9)</MenuItem>
               <MenuItem value=".958">British Silver (%95.8)</MenuItem>
@@ -163,6 +176,27 @@ export default class SilverForm extends Component {
               <MenuItem value=".9">Coin Silver (%90)</MenuItem>
             </Select>
           </FormControl>
+          <br />
+
+          <Input
+            placeholder="ex: 93.8"
+            className={this.state.input}
+            inputProps={{
+              "aria-label": "Description"
+            }}
+            style={{
+              display: this.state.custom ? "" : "none"
+            }}
+          />
+          <br />
+          <Button
+            size="small"
+            className={this.state.margin}
+            onClick={() => this.onCustom()}
+          >
+            {this.state.custom ? "Select preset purity" : "Add custom purity"}
+          </Button>
+
           <br />
           <TextValidator
             name="silverPrice"
