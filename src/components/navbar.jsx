@@ -1,19 +1,17 @@
 import React, { Component } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <ul class="nav nav-pills">
       <li class="nav-item">
-        <a class="nav-link" href="/goldform">
-          {" "}
+        <NavLink to="/goldform" class="nav-link">
+          {/*using link tag to prevent a new server request*/}
           Gold Calculator
-        </a>
+        </NavLink>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/silverform">
-          {" "}
-          Silver Calculator
-        </a>
+      <li class="nav-item" class="nav-link">
+        <NavLink to="/silverform">Silver Calculator</NavLink>
       </li>
     </ul>
   );
