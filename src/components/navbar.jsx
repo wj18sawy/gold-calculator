@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <ul class="nav nav-pills">
       <li class="nav-item">
-        <NavLink to="/goldform" class="nav-link">
+        <NavLink to="/" class="nav-link">
           {/*using link tag to prevent a new server request*/}
           Gold Calculator
         </NavLink>

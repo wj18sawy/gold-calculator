@@ -17,7 +17,9 @@ export default class GoldForm extends Component {
     units: "g",
     karats: "",
     goldPrice: "",
-    total: 0
+    total: 0,
+    total92: 0,
+    total62: 0
   };
 
   change = e => {
@@ -61,7 +63,11 @@ export default class GoldForm extends Component {
     let total = (weight * content * goldPrice).toFixed(2);
     console.log("Price of Gold: ", total);
 
-    this.formatter(total);
+    this.setState({
+      total: total,
+      total92: (total * 0.92).toFixed(2),
+      total62: (total * 0.62).toFixed(2)
+    });
   };
 
   formatter = total => {
@@ -79,9 +85,8 @@ export default class GoldForm extends Component {
     }
 
     total = number + "" + decimal;
-    console.log("After formatting: $", total);
 
-    this.setState({ total });
+    return total;
   };
 
   componentDidMount() {
@@ -193,7 +198,29 @@ export default class GoldForm extends Component {
         <TextField
           id="filled-read-only-input"
           label="Total Gold Value:"
-          value={"$" + this.state.total}
+          value={"$" + this.formatter(this.state.total)}
+          className={this.state.textField}
+          margin="normal"
+          InputProps={{
+            readOnly: true
+          }}
+          variant="filled"
+        />
+        <TextField
+          id="filled-read-only-input"
+          label="Total Gold Value (92%):"
+          value={"$" + this.formatter(this.state.total92)}
+          className={this.state.textField}
+          margin="normal"
+          InputProps={{
+            readOnly: true
+          }}
+          variant="filled"
+        />
+        <TextField
+          id="filled-read-only-input"
+          label="Total Gold Value (62%):"
+          value={"$" + this.formatter(this.state.total62)}
           className={this.state.textField}
           margin="normal"
           InputProps={{
