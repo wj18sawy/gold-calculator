@@ -1,23 +1,47 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import { Tabs, Tab, TabList, TabLink, Icon } from "bloomer";
+import React, { Component } from "react";
+import { Link, NavLink } from "react-router-dom";
 
-const NavBar = () => {
-  return (
-    <div>
-      <Tabs>
-        <TabList>
-          <CustomTab activeOnlyWhenExact={true} to="/" label="GoldCalc" />
-          <CustomTab to="/silverform" label="SilverCalc" />
-        </TabList>
-      </Tabs>
-    </div>
-  );
-};
+class NavBar extends Component {
+  state = {
+    activeTab: 0
+  };
+
+  handleSelect = activeTab => {
+    console.log("setting", activeTab);
+    this.setState({
+      activeTab
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <ul class="nav nav-tabs">
+          <li
+            role="presentation"
+            class={this.state.activeTab == 0 ? "active" : ""}
+            onClick={() => this.handleSelect("0")}
+          >
+            <NavLink to="/">Gold Calculator</NavLink>
+          </li>
+          <li
+            role="presentation"
+            class={this.state.activeTab == 1 ? "active" : ""}
+            onClick={() => this.handleSelect("1")}
+          >
+            <NavLink to="/silverform">Silver Calculator</NavLink>
+          </li>
+          <li
+            role="presentation"
+            class={this.state.activeTab == 2 ? "active" : ""}
+            onClick={() => this.handleSelect("2")}
+          >
+            <NavLink to="#">Calculations</NavLink>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+}
 
 export default NavBar;
