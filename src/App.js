@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NavBar from "./components/navbar";
 import GoldForm from "./components/goldform";
 import SilverForm from "./components/silverform";
+import Calculations from "./components/calculations";
 import { BrowserRouter, Route } from "react-router-dom";
 
 import "./App.css";
@@ -22,6 +23,7 @@ class App extends Component {
           <NavBar />
           <Route exact path="/" component={GoldForm} />
           <Route path="/silverform" component={SilverForm} />
+          <Route path="/calculations" component={Calculations} />
         </div>
       </BrowserRouter>
     );
