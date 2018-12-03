@@ -5,6 +5,21 @@ class NavBar extends Component {
   state = {
     activeTab: ""
   };
+  componentDidMount() {
+    if (window.location.href.search("silverform") != -1) {
+      this.setState({
+        activeTab: "1"
+      });
+    } else if (window.location.href.search("calculations") != -1) {
+      this.setState({
+        activeTab: "2"
+      });
+    } else {
+      this.setState({
+        activeTab: "0"
+      });
+    }
+  }
 
   handleSelect = activeTab => {
     console.log("setting", activeTab);
@@ -15,11 +30,11 @@ class NavBar extends Component {
 
   whatTab = () => {
     console.log("whattab called");
-    if (window.location.href.search("silverform")) {
+    if (window.location.href.search("silverform") != -1) {
       this.setState({
         activeTab: "1"
       });
-    } else if (window.location.href.search("calculations")) {
+    } else if (window.location.href.search("calculations") != -1) {
       this.setState({
         activeTab: "2"
       });

@@ -217,7 +217,7 @@ export default class GoldForm extends Component {
           <TextField
             id="filled-read-only-input"
             label="Total Gold Value:"
-            value={"$" + (this.state.total * 1).toFixed(2)}
+            value={"$" + this.formatter((this.state.total * 1).toFixed(2))}
             className={this.state.textField}
             margin="normal"
             InputProps={{
