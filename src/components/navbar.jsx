@@ -34,7 +34,6 @@ class NavBar extends Component {
 
   handleSelect = activeTab => {
     /** when someone changes the tab the activeTab state has to be set */
-    console.log("setting", activeTab);
     this.setState({
       activeTab
     });
@@ -46,21 +45,21 @@ class NavBar extends Component {
         <ul className="nav nav-tabs">
           <li
             role="presentation"
-            className={this.state.activeTab === 0 ? "active" : ""}
+            className={this.state.activeTab === "0" ? "active" : ""}
             onClick={() => this.handleSelect("0")}
           >
             <Link to="/">Gold Calculator</Link>
           </li>
           <li
             role="presentation"
-            className={this.state.activeTab === 1 ? "active" : ""}
+            className={this.state.activeTab === "1" ? "active" : ""}
             onClick={() => this.handleSelect("1")}
           >
             <Link to="/silverform">Silver Calculator</Link>
           </li>
           <li
             role="presentation"
-            className={this.state.activeTab === 2 ? "active" : ""}
+            className={this.state.activeTab === "2" ? "active" : ""}
             onClick={() => this.handleSelect("2")}
           >
             <Link to="/calculations">Calculations</Link>

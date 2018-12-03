@@ -13,7 +13,7 @@ const Calculations = () => {
         <Typography variant="h5" component="h3">
           For gold:
         </Typography>
-        <Typography component="p">
+        <Typography component="div">
           <ul>
             <li>
               Weight is converted to ounces. <br />
@@ -42,7 +42,7 @@ const Calculations = () => {
         <Typography variant="h5" component="h3">
           For silver:
         </Typography>
-        <Typography component="p">
+        <Typography component="div">
           <ul>
             <li>
               Weight is converted to ounces. <br />

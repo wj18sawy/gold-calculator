@@ -249,7 +249,7 @@ export default class SilverForm extends Component {
           />
           <Button
             type="submit"
-            color="primagitry"
+            color="primary"
             onClick={e => this.onSubmit(e)}
             disabled={!isEnabled}
           >
