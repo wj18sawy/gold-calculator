@@ -4,7 +4,6 @@ import GoldForm from "./components/goldform";
 import SilverForm from "./components/silverform";
 import Calculations from "./components/calculations";
 import { BrowserRouter, Route } from "react-router-dom";
-
 import "./App.css";
 
 class App extends Component {

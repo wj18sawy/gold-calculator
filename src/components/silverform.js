@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -115,7 +113,7 @@ export default class SilverForm extends Component {
       return true;
     });
     ValidatorForm.addValidationRule("isValidPercent", value => {
-      if (value > 100 || (value < 1 && value != 0)) {
+      if (value > 100 || (value < 1 && value !== 0)) {
         return false;
       }
 
@@ -267,6 +265,7 @@ export default class SilverForm extends Component {
           src="https://www.goldbroker.com/widget/live-price/XAG?currency=USD"
           height={130}
           style={{ border: 0 }}
+          title="silver widget"
         />
 
         <br />

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -194,7 +192,7 @@ export default class GoldForm extends Component {
           />
           <Button
             type="submit"
-            color="primagitry"
+            color="primary"
             onClick={e => this.onSubmit(e)}
             disabled={!isEnabled}
           >
@@ -210,6 +208,7 @@ export default class GoldForm extends Component {
           src="https://www.goldbroker.com/widget/live-price/XAU?currency=USD"
           height={130}
           style={{ border: 0 }}
+          title="gold widget"
         />
         <br />
 

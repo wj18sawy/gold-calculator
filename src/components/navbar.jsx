@@ -1,16 +1,27 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
+/**
+ * NavBar component allows the user to navigate between the gold calculator, silver calculator, and the calculations page
+ */
 class NavBar extends Component {
   state = {
     activeTab: ""
+    /**
+     * activeTab keeps track of which page tab should be active depending on what page the user is on
+     * "0" for the home page gold calculator, "1" for the silver calculator, and "2" for the Calculations
+     */
   };
   componentDidMount() {
-    if (window.location.href.search("silverform") != -1) {
+    /**
+     * the URL is retrieved and the activeTab state is set based off what page the user is currently on
+     */
+
+    if (window.location.href.search("silverform") !== -1) {
       this.setState({
         activeTab: "1"
       });
-    } else if (window.location.href.search("calculations") != -1) {
+    } else if (window.location.href.search("calculations") !== -1) {
       this.setState({
         activeTab: "2"
       });
@@ -22,54 +33,37 @@ class NavBar extends Component {
   }
 
   handleSelect = activeTab => {
+    /** when someone changes the tab the activeTab state has to be set */
     console.log("setting", activeTab);
     this.setState({
       activeTab
     });
   };
 
-  whatTab = () => {
-    console.log("whattab called");
-    if (window.location.href.search("silverform") != -1) {
-      this.setState({
-        activeTab: "1"
-      });
-    } else if (window.location.href.search("calculations") != -1) {
-      this.setState({
-        activeTab: "2"
-      });
-    } else {
-      this.setState({
-        activeTab: "0"
-      });
-    }
-    console.log("whattab called2");
-  };
-
   render() {
     return (
       <div>
-        <ul class="nav nav-tabs">
+        <ul className="nav nav-tabs">
           <li
             role="presentation"
-            class={this.state.activeTab == 0 ? "active" : ""}
+            className={this.state.activeTab === 0 ? "active" : ""}
             onClick={() => this.handleSelect("0")}
           >
-            <NavLink to="/">Gold Calculator</NavLink>
+            <Link to="/">Gold Calculator</Link>
           </li>
           <li
             role="presentation"
-            class={this.state.activeTab == 1 ? "active" : ""}
+            className={this.state.activeTab === 1 ? "active" : ""}
             onClick={() => this.handleSelect("1")}
           >
-            <NavLink to="/silverform">Silver Calculator</NavLink>
+            <Link to="/silverform">Silver Calculator</Link>
           </li>
           <li
             role="presentation"
-            class={this.state.activeTab == 2 ? "active" : ""}
+            className={this.state.activeTab === 2 ? "active" : ""}
             onClick={() => this.handleSelect("2")}
           >
-            <NavLink to="/calculations">Calculations</NavLink>
+            <Link to="/calculations">Calculations</Link>
           </li>
         </ul>
       </div>
