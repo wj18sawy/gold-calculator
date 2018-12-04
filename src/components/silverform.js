@@ -37,24 +37,6 @@ export default class SilverForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    this.calculate();
-  };
-
-  onCustom = () => {
-    if (this.state.custom) {
-      this.setState({
-        purity: "92.5",
-        custom: false
-      });
-    } else {
-      this.setState({
-        purity: "",
-        custom: true
-      });
-    }
-  };
-
-  calculate = () => {
     const fields = this.state;
     let convRate = 0.999;
 
@@ -76,6 +58,20 @@ export default class SilverForm extends Component {
     console.log("Price of Silver: ", total);
 
     this.setState({ total });
+  };
+
+  onCustom = () => {
+    if (this.state.custom) {
+      this.setState({
+        purity: "92.5",
+        custom: false
+      });
+    } else {
+      this.setState({
+        purity: "",
+        custom: true
+      });
+    }
   };
 
   formatter = total => {
@@ -266,6 +262,7 @@ export default class SilverForm extends Component {
           height={130}
           style={{ border: 0 }}
           title="silver widget"
+          width={130}
         />
 
         <br />

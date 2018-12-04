@@ -9,7 +9,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
+/**
+ *  GoldForm component is a form for the gold calculator
+ */
 export default class GoldForm extends Component {
+  /* State holds all of the values needed in the calculation, that are filled out using the form */
   state = {
     weight: "",
     units: "g",
@@ -18,12 +22,14 @@ export default class GoldForm extends Component {
     total: 0
   };
 
+  /* state is changed actively as user fills out the form */
   change = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
+  /* state can be reset with a button under the form */
   onReset = () => {
     this.setState({
       weight: "",
@@ -33,15 +39,14 @@ export default class GoldForm extends Component {
     });
   };
 
+  /* onSubmit functions does calculations and sets the state */
   onSubmit = e => {
-    e.preventDefault();
-    this.calculate();
-  };
+    e.preventDefault(); /* stops browser from refreshing */
 
-  calculate = () => {
     const fields = this.state;
     let convRate = 1;
 
+    /* unit conversion to ounces */
     if (fields.units === "g") {
       convRate = 0.035274;
     } else if (fields.units === "ozt") {
@@ -56,12 +61,14 @@ export default class GoldForm extends Component {
     console.log("Weight in oz:", weight);
     console.log("Gold content: ", content * 100, "%");
 
+    /* calculation for total price, more info is on the calculations.js page */
     let total = (weight * content * goldPrice).toFixed(2);
     console.log("Price of Gold: ", total);
 
     this.setState({ total });
   };
 
+  /* Formatter function just converts the number into a price format by adding commas and a decimal where necessary ex: 1,000.00) */
   formatter = total => {
     let totalStr = total.toString();
     let number = totalStr.slice(0, totalStr.length - 3);
@@ -209,6 +216,7 @@ export default class GoldForm extends Component {
           height={130}
           style={{ border: 0 }}
           title="gold widget"
+          width={130}
         />
         <br />
 

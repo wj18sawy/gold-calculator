@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("https://goldmannandsonsplc.co.uk/wp-content/uploads/2018/07/Webpage-background.jpg");
 }
 
 code {
@@ -16,4 +17,13 @@ code {
 form {
   margin: 100;
   padding: 10px;
+}
+
+#root {
+  border-style: groove;
+  border-color: #800000;
+  border-width: 7px;
+  width: max-content;
+  margin: 0 auto;
+  background-color: white;
 }
