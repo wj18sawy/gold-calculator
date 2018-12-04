@@ -11,7 +11,7 @@ const Calculations = () => {
     <div>
       <Paper elevation={1}>
         <Typography variant="h5" component="h3">
-          For gold:
+          Gold:
         </Typography>
         <Typography component="div">
           <ul>
@@ -40,7 +40,7 @@ const Calculations = () => {
           </ul>
         </Typography>
         <Typography variant="h5" component="h3">
-          For silver:
+          Silver:
         </Typography>
         <Typography component="div">
           <ul>
