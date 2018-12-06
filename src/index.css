@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url("https://goldmannandsonsplc.co.uk/wp-content/uploads/2018/07/Webpage-background.jpg");
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+form {
+  margin: 100;
+  padding: 10px;
+}
+
+#root {
+  border-style: outset;
+  border-width: 7px;
+  width: max-content;
+  margin: 0 auto;
+  background-color: white;
+}
+
+#logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  width: 300px;
+  height: 80;
+  border-style: outset;
+  border-width: 7px;
+}
