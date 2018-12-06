@@ -89,6 +89,7 @@ export default class GoldForm extends Component {
   };
 
   componentDidMount() {
+    console.log("Mounted");
     ValidatorForm.addValidationRule("isValidKarat", value => {
       if (value < 0 || value > 24) {
         return false;
