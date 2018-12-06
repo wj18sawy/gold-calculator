@@ -19,7 +19,8 @@ export default class GoldForm extends Component {
     units: "g",
     karats: "",
     goldPrice: "",
-    total: 0
+    total: 0,
+    custom: false
   };
 
   /* state is changed actively as user fills out the form */
@@ -37,6 +38,21 @@ export default class GoldForm extends Component {
       karats: "",
       goldPrice: ""
     });
+  };
+
+  /* for setting custom manual amount of karats */
+  onCustom = () => {
+    if (this.state.custom) {
+      this.setState({
+        karats: "",
+        custom: false
+      });
+    } else {
+      this.setState({
+        karats: "",
+        custom: true
+      });
+    }
   };
 
   /* onSubmit functions does calculations and sets the state */
@@ -89,8 +105,15 @@ export default class GoldForm extends Component {
   };
 
   componentDidMount() {
-    ValidatorForm.addValidationRule("isValidKarat", value => {
-      if (value < 0 || value > 24) {
+    ValidatorForm.addValidationRule("isValidHighKarat", value => {
+      if (value > 24) {
+        return false;
+      }
+
+      return true;
+    });
+    ValidatorForm.addValidationRule("isValidLowKarat", value => {
+      if (value <= 0 && value !== "") {
         return false;
       }
 
@@ -169,20 +192,71 @@ export default class GoldForm extends Component {
             </Select>
           </FormControl>
           <br />
+          <br />
+          <FormControl
+            className={this.state.formControl}
+            style={{ display: this.state.custom ? "none" : "" }}
+          >
+            <InputLabel shrink htmlFor="karats-label-placeholder">
+              Karats
+            </InputLabel>
+            <Select
+              value={this.state.karats}
+              onChange={e => this.change(e)}
+              input={<Input name="karats" id="karats-label-placeholder" />}
+              name="karats"
+              displayEmpty
+              className="this.state.selectEmpty"
+            >
+              <MenuItem value="10">10K (41.7%)</MenuItem>
+              <MenuItem value="12">12K (50%)</MenuItem>
+              <MenuItem value="14">14K (58.3%)</MenuItem>
+              <MenuItem value="18">18K (75%)</MenuItem>
+              <MenuItem value="22">22K (91.7%)</MenuItem>
+              <MenuItem value="24">24K (99.9%)</MenuItem>
+            </Select>
+          </FormControl>
+          <br style={{ display: this.state.custom ? "none" : "" }} />
           <TextValidator
             name="karats"
             label="Karats"
             value={this.state.karats}
-            validators={["required", "isANumber", "isValidKarat"]}
+            validators={[
+              "required",
+              "isANumber",
+              "isValidHighKarat",
+              "isValidLowKarat"
+            ]}
             errorMessages={[
               "this field is required",
               "must be a number value",
-              "must be between 0-24 karats"
+              "must be less than or equal to 24 karats",
+              "must be greater than 0 karats"
             ]}
             onChange={e => this.change(e)}
+            style={{
+              display: this.state.custom ? "" : "none"
+            }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">K</InputAdornment>
+            }}
           />
+
+          <br />
+          <br style={{ display: this.state.custom ? "" : "none" }} />
+
+          <Button
+            size="small"
+            className={this.state.margin}
+            onClick={() => this.onCustom()}
+          >
+            {this.state.custom
+              ? "Select preset karat amount"
+              : "Add custom karat amount"}
+          </Button>
           <br />
           <br />
+
           <TextValidator
             name="goldPrice"
             label="Current Price of Gold / oz"

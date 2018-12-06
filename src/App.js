@@ -8,13 +8,15 @@ import "./App.css";
 
 class App extends Component {
   render() {
-    console.log("url", process.env.PUBLIC_URL);
-
     return (
       <BrowserRouter>
         <div>
           <NavBar />
-          <Route path={process.env.PUBLIC_URL + "/"} component={GoldForm} />
+          <Route
+            exact
+            path={process.env.PUBLIC_URL + "/"}
+            component={GoldForm}
+          />
           <Route
             path={process.env.PUBLIC_URL + "/silverform"}
             component={SilverForm}

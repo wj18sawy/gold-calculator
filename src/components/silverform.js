@@ -13,7 +13,7 @@ export default class SilverForm extends Component {
   state = {
     weight: "",
     units: "g",
-    purity: "92.5",
+    purity: "",
     silverPrice: "",
     total: 0,
     custom: false
@@ -30,7 +30,7 @@ export default class SilverForm extends Component {
     this.setState({
       weight: "",
       units: "g",
-      purity: this.state.custom ? "" : ".925",
+      purity: "",
       silverPrice: ""
     });
   };
@@ -63,7 +63,7 @@ export default class SilverForm extends Component {
   onCustom = () => {
     if (this.state.custom) {
       this.setState({
-        purity: "92.5",
+        purity: "",
         custom: false
       });
     } else {
@@ -109,7 +109,7 @@ export default class SilverForm extends Component {
       return true;
     });
     ValidatorForm.addValidationRule("isValidPercent", value => {
-      if (value > 100 || (value < 1 && value !== 0)) {
+      if (value > 100 && value !== "") {
         return false;
       }
 
@@ -124,7 +124,7 @@ export default class SilverForm extends Component {
       this.state.silverPrice > 0 &&
       this.state.weight > 0 &&
       this.state.silverPrice <= 100 &&
-      this.state.purity >= 1 &&
+      this.state.purity !== "" &&
       this.state.purity <= 100;
 
     return (
