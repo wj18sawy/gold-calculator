@@ -48,21 +48,25 @@ class NavBar extends Component {
             className={this.state.activeTab === "0" ? "active" : ""}
             onClick={() => this.handleSelect("0")}
           >
-            <Link to="/">Gold Calculator</Link>
+            <Link to={process.env.PUBLIC_URL + "/"}>Gold Calculator</Link>
           </li>
           <li
             role="presentation"
             className={this.state.activeTab === "1" ? "active" : ""}
             onClick={() => this.handleSelect("1")}
           >
-            <Link to="/silverform">Silver Calculator</Link>
+            <Link to={process.env.PUBLIC_URL + "/silverform"}>
+              Silver Calculator
+            </Link>
           </li>
           <li
             role="presentation"
             className={this.state.activeTab === "2" ? "active" : ""}
             onClick={() => this.handleSelect("2")}
           >
-            <Link to="/calculations">Calculations</Link>
+            <Link to={process.env.PUBLIC_URL + "/calculations"}>
+              Calculations
+            </Link>
           </li>
         </ul>
       </div>
