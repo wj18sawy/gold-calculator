@@ -136,7 +136,10 @@ export default class GoldForm extends Component {
             label="Weight"
             value={this.state.weight}
             validators={["required", "isANumber"]}
-            errorMessages={["this field is required", "must be a number value"]}
+            errorMessages={[
+              "this field is required",
+              "this must be a number value"
+            ]}
             onChange={e => this.change(e)}
             InputProps={{
               endAdornment: (
