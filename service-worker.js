@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/gold-calculator/precache-manifest.44b48702619d71b4574ed715140a601b.js"
+  "/gold-calculator/precache-manifest.6750a58732ae2a6939f9960ea36fcba7.js"
 );
 
 workbox.clientsClaim();
