@@ -191,7 +191,7 @@ export default class GoldForm extends Component {
             errorMessages={[
               "this field is required",
               "must be a number value",
-              "unlikely current price of gold per oz"
+              "unlikely spot price of gold per oz"
             ]}
             onChange={e => this.change(e)}
             InputProps={{

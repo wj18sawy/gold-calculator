@@ -13,16 +13,15 @@ class App extends Component {
         <div>
           <NavBar />
           <Route
-            exact
-            path={process.env.PUBLIC_URL + "/"}
+            path={process.env.PUBLIC_URL + "gold-calculator/"}
             component={GoldForm}
           />
           <Route
-            path={process.env.PUBLIC_URL + "/silverform"}
+            path={process.env.PUBLIC_URL + "gold-calculator/silverform"}
             component={SilverForm}
           />
           <Route
-            path={process.env.PUBLIC_URL + "/calculations"}
+            path={process.env.PUBLIC_URL + "gold-calculator/calculations"}
             component={Calculations}
           />
         </div>
