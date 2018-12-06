@@ -228,7 +228,7 @@ export default class SilverForm extends Component {
           <br />
           <TextValidator
             name="silverPrice"
-            label="Current Price of Silver"
+            label="Current Price of Silver / oz"
             value={this.state.silverPrice}
             validators={["required", "isANumber", "isWrongPrice"]}
             errorMessages={[

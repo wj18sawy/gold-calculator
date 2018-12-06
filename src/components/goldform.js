@@ -182,7 +182,7 @@ export default class GoldForm extends Component {
           <br />
           <TextValidator
             name="goldPrice"
-            label="Current Price of Gold"
+            label="Current Price of Gold / oz"
             value={this.state.goldPrice}
             validators={["required", "isANumber", "isWrongPrice"]}
             errorMessages={[
