@@ -2,7 +2,7 @@
   "name": "gold-calc",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://wj18sawy.github.io/gold-calculator",
+  "homepage": "cd ",
   "dependencies": {
     "@babel/runtime": "^7.1.5",
     "@material-ui/core": "^3.6.0",
