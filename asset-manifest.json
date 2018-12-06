@@ -1,16 +1,16 @@
 {
   "main.css": "/gold-calculator/static/css/main.1ef970d3.chunk.css",
-  "main.js": "/gold-calculator/static/js/main.fc971554.chunk.js",
-  "main.js.map": "/gold-calculator/static/js/main.fc971554.chunk.js.map",
+  "main.js": "/gold-calculator/static/js/main.c8789f93.chunk.js",
+  "main.js.map": "/gold-calculator/static/js/main.c8789f93.chunk.js.map",
   "static/css/1.d96a8e80.chunk.css": "/gold-calculator/static/css/1.d96a8e80.chunk.css",
-  "static/js/1.f86bfc48.chunk.js": "/gold-calculator/static/js/1.f86bfc48.chunk.js",
-  "static/js/1.f86bfc48.chunk.js.map": "/gold-calculator/static/js/1.f86bfc48.chunk.js.map",
+  "static/js/1.7400e0e5.chunk.js": "/gold-calculator/static/js/1.7400e0e5.chunk.js",
+  "static/js/1.7400e0e5.chunk.js.map": "/gold-calculator/static/js/1.7400e0e5.chunk.js.map",
   "runtime~main.js": "/gold-calculator/static/js/runtime~main.5bdb8a90.js",
   "runtime~main.js.map": "/gold-calculator/static/js/runtime~main.5bdb8a90.js.map",
   "static/media/bootstrap.css": "/gold-calculator/static/media/glyphicons-halflings-regular.89889688.svg",
   "static/css/main.1ef970d3.chunk.css.map": "/gold-calculator/static/css/main.1ef970d3.chunk.css.map",
   "static/css/1.d96a8e80.chunk.css.map": "/gold-calculator/static/css/1.d96a8e80.chunk.css.map",
   "index.html": "/gold-calculator/index.html",
-  "precache-manifest.dc065790542bb2e7165907a7299ecd52.js": "/gold-calculator/precache-manifest.dc065790542bb2e7165907a7299ecd52.js",
+  "precache-manifest.839365c5ec50841d948b4efc56093c8e.js": "/gold-calculator/precache-manifest.839365c5ec50841d948b4efc56093c8e.js",
   "service-worker.js": "/gold-calculator/service-worker.js"
 }
