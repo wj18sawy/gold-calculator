@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Github Pages link: https://wj18sawy.github.io/gold-calculator/
+
 ## Available Scripts
 
 In the project directory, you can run:
